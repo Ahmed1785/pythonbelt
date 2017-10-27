@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Success! Welcome, {{request.session.first_name}}</h1>
+    <a href="/logout">Logout here</a>
+    <h2>Your Trip Schedules</h2>
+    <table border="1px">
+        <tr>
+            <th>Destinations</th>
+            <th>Travel Start Date</th>
+            <th>Travel End Date</th>
+            <th>Plan</th>
+        </tr>
+        {%for travel in cur_user.travelplanner.all%}
+            <tr>
+                <td><a href="/second_app/show/{{travel.id}}">{{travel.destination}}</a></td>
+                <td>{{travel.travel_date}}</td>
+                <td>{{travel.arrive_date}}</td>
+                <td><a href="/second_app/unjoin/{{travel.id}}">Unjoin</td>
+            </tr>
+        {%endfor%}
+    </table>
+    <h2>Other User's Travel Plans</h2>
+    <table border="1px">
+            <tr>
+                <th>Name</th>
+                <th>Destinations</th>
+                <th>Travel Start Date</th>
+                <th>Travel End Date</th>
+                <th>Do you want to join</th>
+            </tr>
+            {%for travel in travels%}
+                {%if travel not in cur_user.travelplanner.all%}
+                <tr>
+                    <td>{{travel.travelplanner_id.first_name}}</td>
+                    <td><a href="/second_app/show/{{travel.id}}">{{travel.destination}}</a></td>
+                    <td>{{travel.travel_date}}</td>
+                    <td>{{travel.arrive_date}}</td>
+                    <td><a href="/second_app/join/{{travel.id}}">join</td>
+                </tr>
+                {%endif%}
+            {%endfor%}
+        </table>
+
+    <a href="/second_app/addTravel">Add a Travel Plan</a>
+
+</body>
+</html>

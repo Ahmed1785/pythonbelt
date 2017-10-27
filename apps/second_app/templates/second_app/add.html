@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+<h1>Add a Travel Plan</h1>
+<form action="/second_app/home" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Home"> 
+</form>
+<form action="/logout" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Logout"> 
+</form>
+<h1>Add a Trip</h1>
+<form action="/second_app/create" method="post">
+    {%csrf_token%}
+   <p> Destination: <input type="text" name="destination"></p>
+   <p><input type="hidden" name="user" value="{{request.session.id}}"></p>
+   <p> Description: <input type="text" name="description"></p>
+   <p> Travel Date From: <input type="date" name="travel_date"></p>
+   <p> Travel Date To: <input type="date" name="arrive_date"></p>
+   <p> <input type="submit" value="Add Trip"></p>
+</form>
+</body>
+</html>
